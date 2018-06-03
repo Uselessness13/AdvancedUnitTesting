@@ -1,20 +1,28 @@
 import static org.mockito.Mockito.*;
+
 import Exceptions.NotEnoughMoneyException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class WalletTests {
 
-    private Bank bank = new Bank();
+    private Bank bank;
+
+    @Before
+    public void before() {
+        bank = mock(Bank.class);
+    }
+
     @Test
-    public void addMoneyTest(){
+    public void addMoneyTest() {
         Wallet wallet = new Wallet(bank);
         wallet.addMoney("RUB", 100);
         Assert.assertEquals("{ RUB : 100 }", wallet.toString());
     }
 
     @Test
-    public void removeMoneyTest(){
+    public void removeMoneyTest() {
         Wallet wallet = new Wallet(bank);
         wallet.addMoney("RUB", 100);
         try {
@@ -26,8 +34,8 @@ public class WalletTests {
     }
 
     @Test
-    public void getTotalMoney(){
-        Wallet wallet = new Wallet(mock(Bank.class));
+    public void getTotalMoney() {
+        Wallet wallet = new Wallet(bank);
         wallet.addMoney("RUB", 100);
         wallet.addMoney("RUB", 150);
         when(wallet.getTotalMoney("RUB")).thenReturn(250);
